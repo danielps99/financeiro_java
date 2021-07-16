@@ -1,9 +1,9 @@
 package br.com.bdws.financeiro.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.bdws.financeiro.entity.Titulo;
+import br.com.bdws.financeiro.service.TituloService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -11,9 +11,29 @@ import java.util.List;
 @RequestMapping(value = "/api")
 public class TituloController {
 
-    @GetMapping("/ola")
+    @Autowired
+    private TituloService service;
+
     @ResponseBody
-    public String ola() {
-        return "Olá";
+    @PostMapping("/titulo")
+    public Titulo criar(@RequestBody Titulo entity){
+        return service.salvar(entity);
+    }
+
+    @ResponseBody
+    @GetMapping("/titulo")
+    public List<Titulo> listar(){
+        return service.buscarTodos();
+    }
+
+    @ResponseBody
+    @GetMapping("/titulo/{id}")
+    public Titulo buscar(@PathVariable String id){
+        return service.buscar(id);
+    }
+
+    @DeleteMapping("/titulo/{id}")
+    public void remover(@PathVariable String id){
+        service.remover(id);
     }
 }
