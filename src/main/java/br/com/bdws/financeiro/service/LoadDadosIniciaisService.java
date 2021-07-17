@@ -4,8 +4,6 @@ import br.com.bdws.financeiro.entity.ClienteSistema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class LoadDadosIniciaisService {
 
@@ -26,8 +24,6 @@ public class LoadDadosIniciaisService {
 
     private ClienteSistema criarUsuarioSistema() {
         ClienteSistema clienteSistema = ClienteSistema.builder()
-                .criadoEm(new Date())
-                .atualizadoEm(new Date())
                 .nome("Daniel")
                 .build();
         return clienteSistemaService.salvar(clienteSistema);
