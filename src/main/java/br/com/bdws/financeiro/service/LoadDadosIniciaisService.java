@@ -1,21 +1,89 @@
 package br.com.bdws.financeiro.service;
 
-import br.com.bdws.financeiro.entity.ClienteSistema;
+import br.com.bdws.financeiro.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class LoadDadosIniciaisService {
 
     @Autowired
     private ClienteSistemaService clienteSistemaService;
+    @Autowired
+    private ContaService contaService;
+    @Autowired
+    private CategoriaService categoriaService;
+    @Autowired
+    private SubCategoriaService subCategoriaService;
+    private ClienteSistema clienteSistema;
 
     public void inserirDadosIniciais() {
-        ClienteSistema clienteSistema = buscarClienteSistemaExistente();
+        clienteSistema = buscarClienteSistemaExistente();
         if (clienteSistema == null) {
             clienteSistema = criarUsuarioSistema();
+            criarContas();
+            criarCategoriasESubCategorias();
         }
         System.out.println("Cliente Sistema id: " + clienteSistema.getId());
+    }
+
+    private void criarContas() {
+        criarESalvarContaComSaldo(clienteSistema, "Carteira");
+        criarESalvarContaComSaldo(clienteSistema, "Banco 1");
+        criarESalvarContaComSaldo(clienteSistema, "Cartao credito 1");
+    }
+
+    private void criarESalvarContaComSaldo(ClienteSistema clienteSistema, String descricaoConta) {
+        Conta conta = Conta.builder()
+                .clienteSistema(clienteSistema)
+                .ativo(true)
+                .descricao(descricaoConta)
+                .build();
+        ContaSaldo contaSaldo = ContaSaldo.builder()
+                .conta(conta)
+                .valor(BigDecimal.valueOf(100))
+                .build();
+        conta.setSaldoAtual(contaSaldo);
+        contaService.salvar(conta);
+    }
+
+    private void criarCategoriasESubCategorias() {
+        Categoria categoria = criarESalvarCategoria("Alimentação");
+        criarSubCategoria(categoria, "Mercado");
+        criarSubCategoria(categoria, "Açougue");
+        criarSubCategoria(categoria, "Outros");
+        categoria = criarESalvarCategoria("Saúde");
+        criarSubCategoria(categoria, "Consulta");
+        criarSubCategoria(categoria, "Exame");
+        criarSubCategoria(categoria, "Remédio");
+        categoria = criarESalvarCategoria("Salário");
+        criarSubCategoria(categoria, "Fixo");
+        criarSubCategoria(categoria, "Objetos vendidos");
+        criarSubCategoria(categoria, "Free Lance");
+        categoria = criarESalvarCategoria("Lazer");
+        criarSubCategoria(categoria, "Viagem");
+        criarSubCategoria(categoria, "Clube");
+    }
+
+    private void criarSubCategoria(Categoria categoria, String descricao) {
+        SubCategoria subCategoria = SubCategoria.builder()
+                .clienteSistema(clienteSistema)
+                .categoria(categoria)
+                .ativo(true)
+                .descricao(descricao)
+                .build();
+        subCategoriaService.salvar(subCategoria);
+    }
+
+    private Categoria criarESalvarCategoria(String descricaoCategoria) {
+        Categoria categoria = Categoria.builder()
+                .clienteSistema(clienteSistema)
+                .ativo(true)
+                .descricao(descricaoCategoria)
+                .build();
+        return categoriaService.salvar(categoria);
     }
 
     private ClienteSistema buscarClienteSistemaExistente() {
@@ -23,7 +91,7 @@ public class LoadDadosIniciaisService {
     }
 
     private ClienteSistema criarUsuarioSistema() {
-        ClienteSistema clienteSistema = ClienteSistema.builder()
+        clienteSistema = ClienteSistema.builder()
                 .nome("Daniel")
                 .build();
         return clienteSistemaService.salvar(clienteSistema);
