@@ -36,16 +36,17 @@ public class LoadDadosIniciaisService {
     }
 
     private void criarESalvarContaComSaldo(ClienteSistema clienteSistema, String descricaoConta) {
+        BigDecimal saldoAtual = BigDecimal.valueOf(100);
         Conta conta = Conta.builder()
                 .clienteSistema(clienteSistema)
                 .ativo(true)
                 .descricao(descricaoConta)
+                .saldoAtual(saldoAtual)
                 .build();
         ContaSaldo contaSaldo = ContaSaldo.builder()
                 .conta(conta)
-                .valor(BigDecimal.valueOf(100))
+                .valor(saldoAtual)
                 .build();
-        conta.setSaldoAtual(contaSaldo);
         contaService.salvar(conta);
     }
 
