@@ -20,4 +20,8 @@ public class ClienteSistemaService {
     public List<ClienteSistema> buscarTodos() {
         return repository.findAll();
     }
+
+    public ClienteSistema buscar(String id) {
+        return repository.findById(id).orElse(null);
+    }
 }

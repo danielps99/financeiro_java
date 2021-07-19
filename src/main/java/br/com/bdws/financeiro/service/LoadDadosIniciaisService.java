@@ -20,6 +20,7 @@ public class LoadDadosIniciaisService {
     @Autowired
     private SubCategoriaService subCategoriaService;
     private ClienteSistema clienteSistema;
+    private String clienteSistemaId;
 
     public void inserirDadosIniciais() {
         clienteSistema = buscarClienteSistemaExistente();
@@ -28,7 +29,8 @@ public class LoadDadosIniciaisService {
             criarContas();
             criarCategoriasESubCategorias();
         }
-        System.out.println("Cliente Sistema id: " + clienteSistema.getId());
+        clienteSistemaId = clienteSistema.getId();
+        System.out.println("Cliente Sistema id: " + clienteSistemaId);
     }
 
     private void criarContas() {
@@ -49,7 +51,7 @@ public class LoadDadosIniciaisService {
                 .conta(conta)
                 .valor(saldoAtual)
                 .build();
-        contaService.salvar(conta);
+        contaService.salvar(clienteSistemaId, conta);
         contaSaldoService.salvar(contaSaldo);
     }
 

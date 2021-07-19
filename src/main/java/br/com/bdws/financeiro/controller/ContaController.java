@@ -17,8 +17,8 @@ public class ContaController {
 
     @ResponseBody
     @PostMapping("/conta")
-    public Conta criar(@RequestBody Conta entity) {
-        return service.salvar(entity);
+    public ContaDto criar(@RequestHeader String cliente, @RequestBody Conta entity) {
+        return service.salvar(cliente, entity);
     }
 
     @ResponseBody
@@ -29,14 +29,7 @@ public class ContaController {
 
     @ResponseBody
     @GetMapping("/conta/{id}")
-    public ContaDto buscar(@PathVariable String id) {
-        return service.buscar(id);
+    public ContaDto buscar(@RequestHeader String cliente, @PathVariable String id) {
+        return service.buscarPorIdEClienteId(cliente, id);
     }
-
-    @DeleteMapping("/conta/{id}")
-    public void remover(@PathVariable String id) {
-//        service.remover(id);
-    }
-
-
 }
