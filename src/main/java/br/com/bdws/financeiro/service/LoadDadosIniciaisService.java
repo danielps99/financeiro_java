@@ -14,6 +14,8 @@ public class LoadDadosIniciaisService {
     @Autowired
     private ContaService contaService;
     @Autowired
+    private ContaSaldoService contaSaldoService;
+    @Autowired
     private CategoriaService categoriaService;
     @Autowired
     private SubCategoriaService subCategoriaService;
@@ -48,6 +50,7 @@ public class LoadDadosIniciaisService {
                 .valor(saldoAtual)
                 .build();
         contaService.salvar(conta);
+        contaSaldoService.salvar(contaSaldo);
     }
 
     private void criarCategoriasESubCategorias() {
