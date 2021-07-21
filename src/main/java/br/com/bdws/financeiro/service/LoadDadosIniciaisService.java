@@ -80,7 +80,7 @@ public class LoadDadosIniciaisService {
                 .ativo(true)
                 .descricao(descricao)
                 .build();
-        subCategoriaService.salvar(subCategoria);
+        subCategoriaService.salvar(clienteSistemaId, subCategoria);
     }
 
     private Categoria criarESalvarCategoria(String descricaoCategoria) {
@@ -89,7 +89,7 @@ public class LoadDadosIniciaisService {
                 .ativo(true)
                 .descricao(descricaoCategoria)
                 .build();
-        return categoriaService.salvar(categoria);
+        return categoriaService.salvar(clienteSistemaId, categoria);
     }
 
     private ClienteSistema buscarClienteSistemaExistente() {
