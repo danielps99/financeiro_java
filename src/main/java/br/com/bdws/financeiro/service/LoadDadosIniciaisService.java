@@ -89,7 +89,7 @@ public class LoadDadosIniciaisService {
                 .ativo(true)
                 .descricao(descricaoCategoria)
                 .build();
-        return categoriaService.salvar(clienteSistemaId, categoria);
+        return categoriaService.salvarRetornandoEntity(clienteSistemaId, categoria);
     }
 
     private ClienteSistema buscarClienteSistemaExistente() {

@@ -23,18 +23,18 @@ public class ContaService {
 
     public ContaDto salvar(String clienteId, Conta entity) {
         entity.setClienteSistema(clienteSistemaService.buscar(clienteId));
-        Conta conta = repository.save(entity);
-        return modelMapper.map(conta, ContaDto.class);
+        entity = repository.save(entity);
+        return modelMapper.map(entity, ContaDto.class);
     }
 
     public ContaDto buscarPorIdEClienteId(String clienteId, String id) {
-        Conta conta = repository.findByIdAndClienteSistemaId(id, clienteId).orElse(null);
-        return modelMapper.map(conta, ContaDto.class);
+        Conta entity = repository.findByIdAndClienteSistemaId(id, clienteId).orElse(null);
+        return modelMapper.map(entity, ContaDto.class);
     }
 
     public List<ContaDto> buscarTodosPorCliente(String clienteId) {
         List<ContaDto> contas = repository.findAllByClienteSistemaId(clienteId).stream()
-                .map(livro -> modelMapper.map(livro, ContaDto.class)).collect(Collectors.toList());
+                .map(entity -> modelMapper.map(entity, ContaDto.class)).collect(Collectors.toList());
         return contas;
     }
 }
