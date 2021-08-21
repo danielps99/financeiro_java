@@ -12,8 +12,11 @@ public class TituloService {
 
     @Autowired
     private ITituloRepository repository;
+    @Autowired
+    private ClienteSistemaService clienteSistemaService;
 
-    public Titulo salvar(Titulo titulo) {
+    public Titulo salvar(String cliente, Titulo titulo) {
+        titulo.setClienteSistema(clienteSistemaService.buscar(cliente));
         return repository.save(titulo);
     }
 

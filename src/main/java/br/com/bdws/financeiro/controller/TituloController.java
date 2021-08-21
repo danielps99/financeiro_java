@@ -16,24 +16,24 @@ public class TituloController {
 
     @ResponseBody
     @PostMapping("/titulo")
-    public Titulo criar(@RequestBody Titulo entity){
-        return service.salvar(entity);
+    public Titulo criar(@RequestHeader String cliente, @RequestBody Titulo entity) {
+        return service.salvar(cliente, entity);
     }
 
     @ResponseBody
     @GetMapping("/titulo")
-    public List<Titulo> listar(){
+    public List<Titulo> listar(@RequestHeader String cliente) {
         return service.buscarTodos();
     }
 
     @ResponseBody
     @GetMapping("/titulo/{id}")
-    public Titulo buscar(@PathVariable String id){
+    public Titulo buscar(@PathVariable String id) {
         return service.buscar(id);
     }
 
     @DeleteMapping("/titulo/{id}")
-    public void remover(@PathVariable String id){
+    public void remover(@PathVariable String id) {
         service.remover(id);
     }
 }
