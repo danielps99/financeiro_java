@@ -1,8 +1,8 @@
 package br.com.bdws.financeiro.controller;
 
 import br.com.bdws.financeiro.dto.SubCategoriaDto;
-import br.com.bdws.financeiro.entity.SubCategoria;
-import br.com.bdws.financeiro.service.SubCategoriaService;
+import br.com.bdws.financeiro.entity.Subcategoria;
+import br.com.bdws.financeiro.service.SubcategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,14 +10,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api")
-public class SubCategoriaController {
+public class SubcategoriaController {
 
     @Autowired
-    private SubCategoriaService service;
+    private SubcategoriaService service;
 
     @ResponseBody
     @PostMapping("/subcategoria")
-    public SubCategoriaDto criar(@RequestHeader String cliente, @RequestBody SubCategoria entity) {
+    public SubCategoriaDto criar(@RequestHeader String cliente, @RequestBody Subcategoria entity) {
         return service.salvar(cliente, entity);
     }
 

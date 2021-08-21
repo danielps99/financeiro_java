@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class SubCategoria extends AbstractEntity {
+public class Subcategoria extends AbstractEntity {
 
     @ManyToOne
     private ClienteSistema clienteSistema;

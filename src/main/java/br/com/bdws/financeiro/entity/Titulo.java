@@ -24,5 +24,5 @@ public class Titulo extends AbstractEntity {
     @ManyToOne
     private Categoria categoria;
     @ManyToOne
-    private SubCategoria subcategoria;
+    private Subcategoria subcategoria;
 }

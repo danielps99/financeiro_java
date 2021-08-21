@@ -1,8 +1,8 @@
 package br.com.bdws.financeiro.service;
 
 import br.com.bdws.financeiro.dto.SubCategoriaDto;
-import br.com.bdws.financeiro.entity.SubCategoria;
-import br.com.bdws.financeiro.repository.ISubCategoriaRepository;
+import br.com.bdws.financeiro.entity.Subcategoria;
+import br.com.bdws.financeiro.repository.ISubcategoriaRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,22 +13,22 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class SubCategoriaService {
+public class SubcategoriaService {
 
     private final ModelMapper modelMapper;
     @Autowired
-    private ISubCategoriaRepository repository;
+    private ISubcategoriaRepository repository;
     @Autowired
     private ClienteSistemaService clienteSistemaService;
 
-    public SubCategoriaDto salvar(String clienteId, SubCategoria entity) {
+    public SubCategoriaDto salvar(String clienteId, Subcategoria entity) {
         entity.setClienteSistema(clienteSistemaService.buscar(clienteId));
         entity = repository.save(entity);
         return modelMapper.map(entity, SubCategoriaDto.class);
     }
 
     public SubCategoriaDto buscarPorIdEClienteId(String id, String clienteId) {
-        SubCategoria entity = repository.findByIdAndClienteSistemaId(id, clienteId).orElse(null);
+        Subcategoria entity = repository.findByIdAndClienteSistemaId(id, clienteId).orElse(null);
         return modelMapper.map(entity, SubCategoriaDto.class);
     }
 

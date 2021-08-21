@@ -18,7 +18,7 @@ public class LoadDadosIniciaisService {
     @Autowired
     private CategoriaService categoriaService;
     @Autowired
-    private SubCategoriaService subCategoriaService;
+    private SubcategoriaService subCategoriaService;
     private ClienteSistema clienteSistema;
     private String clienteSistemaId;
 
@@ -74,7 +74,7 @@ public class LoadDadosIniciaisService {
     }
 
     private void criarSubCategoria(Categoria categoria, String descricao) {
-        SubCategoria subCategoria = SubCategoria.builder()
+        Subcategoria subCategoria = Subcategoria.builder()
                 .clienteSistema(clienteSistema)
                 .categoria(categoria)
                 .ativo(true)
