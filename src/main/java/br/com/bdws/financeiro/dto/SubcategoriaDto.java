@@ -3,7 +3,7 @@ package br.com.bdws.financeiro.dto;
 import lombok.Data;
 
 @Data
-public class SubCategoriaDto {
+public class SubcategoriaDto {
     private String id;
     private String descricao;
     private boolean ativo;

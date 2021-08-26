@@ -1,6 +1,6 @@
 package br.com.bdws.financeiro.service;
 
-import br.com.bdws.financeiro.dto.SubCategoriaDto;
+import br.com.bdws.financeiro.dto.SubcategoriaDto;
 import br.com.bdws.financeiro.entity.Subcategoria;
 import br.com.bdws.financeiro.repository.ISubcategoriaRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,20 +21,20 @@ public class SubcategoriaService {
     @Autowired
     private ClienteSistemaService clienteSistemaService;
 
-    public SubCategoriaDto salvar(String clienteId, Subcategoria entity) {
+    public SubcategoriaDto salvar(String clienteId, Subcategoria entity) {
         entity.setClienteSistema(clienteSistemaService.buscar(clienteId));
         entity = repository.save(entity);
-        return modelMapper.map(entity, SubCategoriaDto.class);
+        return modelMapper.map(entity, SubcategoriaDto.class);
     }
 
-    public SubCategoriaDto buscarPorIdEClienteId(String id, String clienteId) {
+    public SubcategoriaDto buscarPorIdEClienteId(String id, String clienteId) {
         Subcategoria entity = repository.findByIdAndClienteSistemaId(id, clienteId).orElse(null);
-        return modelMapper.map(entity, SubCategoriaDto.class);
+        return modelMapper.map(entity, SubcategoriaDto.class);
     }
 
-    public List<SubCategoriaDto> buscarTodosPorCliente(String clienteId) {
-        List<SubCategoriaDto> subCategorias = repository.findAllByClienteSistemaId(clienteId).stream()
-                .map(entity -> modelMapper.map(entity, SubCategoriaDto.class)).collect(Collectors.toList());
+    public List<SubcategoriaDto> buscarTodosPorCliente(String clienteId) {
+        List<SubcategoriaDto> subCategorias = repository.findAllByClienteSistemaId(clienteId).stream()
+                .map(entity -> modelMapper.map(entity, SubcategoriaDto.class)).collect(Collectors.toList());
         return subCategorias;
     }
 }
