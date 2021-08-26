@@ -26,6 +26,7 @@ public class LoadDadosIniciaisService {
         clienteSistema = buscarClienteSistemaExistente();
         if (clienteSistema == null) {
             clienteSistema = criarUsuarioSistema();
+            clienteSistemaId = clienteSistema.getId();
             criarContas();
             criarCategoriasESubCategorias();
         }
