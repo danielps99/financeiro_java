@@ -1,5 +1,6 @@
 package br.com.bdws.financeiro.controller;
 
+import br.com.bdws.financeiro.dto.TituloDto;
 import br.com.bdws.financeiro.entity.Titulo;
 import br.com.bdws.financeiro.service.TituloService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class TituloController {
 
     @ResponseBody
     @GetMapping("/titulo")
-    public List<Titulo> listar(@RequestHeader String cliente) {
+    public List<TituloDto> listar(@RequestHeader String cliente) {
         return service.buscarTodos();
     }
 
