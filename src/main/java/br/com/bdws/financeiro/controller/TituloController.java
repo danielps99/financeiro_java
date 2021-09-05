@@ -17,8 +17,14 @@ public class TituloController {
 
     @ResponseBody
     @PostMapping("/titulo")
-    public Titulo criar(@RequestHeader String cliente, @RequestBody Titulo entity) {
-        return service.salvar(cliente, entity);
+    public Titulo agendar(@RequestHeader String cliente, @RequestBody Titulo entity) {
+        return service.agendar(cliente, entity);
+    }
+
+    @ResponseBody
+    @PostMapping("/titulo/{parcelas}/{peridiocidade}/{calculo}")
+    public Titulo agendarParcelado(@RequestHeader String cliente, @RequestBody Titulo entity, @PathVariable Integer parcelas, @PathVariable String peridiocidade, @PathVariable String calculo) {
+        return service.agendarParcelado(cliente, entity, parcelas, peridiocidade, calculo);
     }
 
     @ResponseBody

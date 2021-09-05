@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,28 @@ public class TituloService {
     @Autowired
     private ClienteSistemaService clienteSistemaService;
 
-    public Titulo salvar(String cliente, Titulo titulo) {
+    public Titulo agendar(String cliente, Titulo titulo) {
         titulo.setClienteSistema(clienteSistemaService.buscar(cliente));
         return repository.save(titulo);
+    }
+
+    public Titulo agendarParcelado(String cliente, Titulo titulo, Integer parcelas, String peridiocidade, String calculo) {
+        titulo.setClienteSistema(clienteSistemaService.buscar(cliente));
+
+        /*
+            TODO
+            - Implementar a divisão do valor em parcelas
+            - Melhorar o acréscimo no vencimento em cada parcela de acordo com a periodicidade
+         */
+        GregorianCalendar gc = new GregorianCalendar();
+        Titulo tituloSalvo = null;
+        for (int i = 0; i < parcelas; i++) {
+            gc.setTime(titulo.getVencimento());
+            gc.add(gc.MONTH, i);
+            titulo.setVencimento(gc.getTime());
+            tituloSalvo = repository.save(titulo);
+        }
+        return tituloSalvo;
     }
 
     public List<TituloDto> buscarTodos() {
